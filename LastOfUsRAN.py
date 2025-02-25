@@ -124,3 +124,6 @@ def main(): #Main program calling and handling
     
 
 main() #calls the main function with the actual shit in it
+
+
+#WTF
