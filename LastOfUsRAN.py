@@ -102,7 +102,7 @@ def main(): #Main program calling and handling
     trials = 200
 
     try:
-        stepVariation = int(input("How Many Steps: "))
+        stepVariation = [int(input("How Many Steps: "))]
     except ValueError as e:
         print("Error:", e)
     
