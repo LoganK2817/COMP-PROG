@@ -1,0 +1,4 @@
+Shambler random walk of 10 steps, 200 trials:
+Mean = 2.86 | CV = 0.53
+Max = 7.07 | Min = 0.0
+----------------------------------------
