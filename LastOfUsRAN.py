@@ -100,7 +100,17 @@ def main(): #Main program calling and handling
     
     stepVariation = [10]
     trials = 200
+
+    try:
+        stepVariation = int(input("How Many Steps: "))
+    except ValueError as e:
+        print("Error:", e)
     
+
+    try:
+        trials = int(input("How Many Trials: "))
+    except ValueError as e:
+        print("Error:", e)
     
     try:
         typ = input("Zombie Kind? : ")
