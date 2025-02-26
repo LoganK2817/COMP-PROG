@@ -3,12 +3,41 @@ import math
 import statistics
 import tkinter as tk
 from tkinter import simpledialog
-
-
 import plotting
+
+
+
+# Create a hidden Tkinter root window
+root = tk.Tk()
+root.withdraw()  # Hide the main window
 
 outFile = open("TLOF.txt", "w") #open/create outPut file
 plotFile = open("TLOF_Points.txt", "w")
+
+# Function to get an integer input
+def get_integer(prompt):
+    while True:
+        try:
+            value = simpledialog.askstring("Input", prompt)
+            if value is None:  # Handle case where user cancels
+                raise Exception("Input cancelled.")
+            return int(value)
+        except ValueError:
+            print("Error: Please enter a valid number.")
+
+# Function to get a non-numeric string input
+def get_string(prompt):
+    while True:
+        try:
+            value = simpledialog.askstring("Input", prompt)
+            if value is None:  # Handle case where user cancels
+                raise Exception("Input cancelled.")
+            if value.isdigit():  # Ensure it's not purely numeric
+                raise ValueError("Numbers are not allowed!")
+            return value
+        except ValueError as e:
+            print("Error:", e)
+
 
 class ZombieTypes: # functions for the simulation of each zombie movement type
     @staticmethod
@@ -97,26 +126,13 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
 def main(): #Main program calling and handling
 
 
-    
+    # Get inputs using the functions
+    stepVariation = [get_integer("How Many Steps: ")]
+    trials = get_integer("How Many Trials: ")
+    typ = get_string("Zombie Kind? : ")
 
-
-    try:
-        stepVariation = [int(input("How Many Steps: "))]
-    except ValueError as e:
-        print("Error:", e)
-    
-
-    try:
-        trials = int(input("How Many Trials: "))
-    except ValueError as e:
-        print("Error:", e)
-    
-    try:
-        typ = input("Zombie Kind? : ")
-        if typ.isdigit():  # Check if the input contains only numbers
-            raise ValueError("Numbers are not allowed!")
-    except ValueError as e:
-        print("Error:", e)
+    # Destroy the Tkinter root window after input is collected
+    root.destroy()
 
 
 
