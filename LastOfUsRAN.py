@@ -98,8 +98,7 @@ def main(): #Main program calling and handling
 
 
     
-    stepVariation = [10]
-    trials = 200
+
 
     try:
         stepVariation = [int(input("How Many Steps: "))]
