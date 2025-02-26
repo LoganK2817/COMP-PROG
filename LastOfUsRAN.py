@@ -150,5 +150,5 @@ def main(): #Main program calling and handling
 
 main() #calls the main function with the actual shit in it
 
-
+#gay
 #maybe next itteration will change the color of the dots on the graph for each trial. i.e; trial 1 is blue, trial 2 is red, ect.
