@@ -39,6 +39,11 @@ def get_string(prompt):
             print("Error:", e)
 
 
+def remove_dupes(preList):
+    return list(dict.fromkeys(preList))
+
+
+
 class ZombieTypes: # functions for the simulation of each zombie movement type
     @staticmethod
     def shambler(): #Simulate movement for shambler
@@ -113,10 +118,20 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
             cvDist = stdDev / avgDist if avgDist != 0 else 0 #the CV of the trials 
             
             plotFile.write("Ending Posistions:\n") #Writes the first line of output file for the given trail
-            for pos in endingPos:
+            
+            filteredList = remove_dupes(endingPos)
+            
+            preCleaned = 0
+            postCleaned = 0
+            
+            for pos in filteredList:
                 plotFile.write(f"{pos}\n")
+                postCleaned += 1
                 
+            for pos in endingPos:
+                preCleaned += 1
                 
+            print(f"{preCleaned}\n {postCleaned}")
                 
             outFile.write(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") #Writes the first line of output file for the given trail
             outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") #Writes the second line of output file for the given trail
@@ -134,9 +149,6 @@ def main(): #Main program calling and handling
     # Destroy the Tkinter root window after input is collected
     root.destroy()
 
-
-
-    
     print(f"{stepVariation} | {trials} | {typ}") #prints the inputed variables to the command line
 
     simulate(stepVariation, trials, typ) #passes the inputed variables through to the actual simulations
@@ -145,10 +157,9 @@ def main(): #Main program calling and handling
     plotFile.close() #closes the plot file
     plotting.main() #call the plotting file to start making a scatter plot
     
-    
-    
 
 main() #calls the main function with the actual shit in it
 
 
 #maybe next itteration will change the color of the dots on the graph for each trial. i.e; trial 1 is blue, trial 2 is red, ect.
+# check the ending Pos for reaccuring data, and discard or otherwise mark if so.
