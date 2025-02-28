@@ -157,6 +157,7 @@ def main(): #Main program calling and handling
     plotFile.close() #closes the plot file
     plotting.main() #call the plotting file to start making a scatter plot
     
+    
 
 main() #calls the main function with the actual shit in it
 
