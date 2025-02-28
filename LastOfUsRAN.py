@@ -93,8 +93,6 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
             stdDev = statistics.stdev(endingDist) if len(endingDist) > 1 else 0 #These two lines find
             cvDist = stdDev / avgDist if avgDist != 0 else 0 #the CV of the trials 
             
-            plotFile.write("Ending Posistions:\n") #Writes the first line of output file for the given trail
-            
             filteredList = artifact.remove_dupes(endingPos)
             
             preCleaned = 0
