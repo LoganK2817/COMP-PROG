@@ -1,46 +1,22 @@
 import random
 import math
 import statistics
+
 import tkinter as tk
 from tkinter import simpledialog
-import plotting
-
-
-
-# Create a hidden Tkinter root window
-root = tk.Tk()
+root = tk.Tk() # Create a hidden Tkinter root window
 root.withdraw()  # Hide the main window
+
+import plotting
+import artifact
+
+
+
+
 
 outFile = open("TLOF.txt", "w") #open/create outPut file
 plotFile = open("TLOF_Points.txt", "w")
 
-# Function to get an integer input
-def get_integer(prompt):
-    while True:
-        try:
-            value = simpledialog.askstring("Input", prompt)
-            if value is None:  # Handle case where user cancels
-                raise Exception("Input cancelled.")
-            return int(value)
-        except ValueError:
-            print("Error: Please enter a valid number.")
-
-# Function to get a non-numeric string input
-def get_string(prompt):
-    while True:
-        try:
-            value = simpledialog.askstring("Input", prompt)
-            if value is None:  # Handle case where user cancels
-                raise Exception("Input cancelled.")
-            if value.isdigit():  # Ensure it's not purely numeric
-                raise ValueError("Numbers are not allowed!")
-            return value
-        except ValueError as e:
-            print("Error:", e)
-
-
-def remove_dupes(preList):
-    return list(dict.fromkeys(preList))
 
 
 
@@ -119,7 +95,7 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
             
             plotFile.write("Ending Posistions:\n") #Writes the first line of output file for the given trail
             
-            filteredList = remove_dupes(endingPos)
+            filteredList = artifact.remove_dupes(endingPos)
             
             preCleaned = 0
             postCleaned = 0
@@ -142,9 +118,9 @@ def main(): #Main program calling and handling
 
 
     # Get inputs using the functions
-    stepVariation = [get_integer("How Many Steps: ")]
-    trials = get_integer("How Many Trials: ")
-    typ = get_string("Zombie Kind? : ")
+    stepVariation = [artifact.get_integer("How Many Steps: ")]
+    trials = artifact.get_integer("How Many Trials: ")
+    typ = artifact.get_string("Zombie Kind? : ")
 
     # Destroy the Tkinter root window after input is collected
     root.destroy()
@@ -163,4 +139,4 @@ main() #calls the main function with the actual shit in it
 
 
 #maybe next itteration will change the color of the dots on the graph for each trial. i.e; trial 1 is blue, trial 2 is red, ect.
-# check the ending Pos for reaccuring data, and discard or otherwise mark if so.
+
