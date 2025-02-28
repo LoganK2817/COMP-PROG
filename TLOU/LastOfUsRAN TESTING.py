@@ -1,6 +1,8 @@
 import random
 import math
 import statistics
+import sys
+import os
 
 import tkinter as tk
 from tkinter import simpledialog
@@ -8,6 +10,9 @@ root = tk.Tk() # Create a Tkinter root window
 root.title("Movement Simulation") # Name the Tkinter window
 root.geometry("400x250") # Size the Tkinter window
 
+
+# Get the parent directory and add it to the path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import plotting # The file where the point graphing takes palace
 import artifact # My library for Commonly Used Modules
 
@@ -91,6 +96,7 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
     
     return True
     
+
 # Create first label and entry field
 label_1 = tk.Label(root, text="Enter How many steps to simulate:")
 label_1.pack()
@@ -145,6 +151,7 @@ def get_inputs():
         plotFile.close() # closes the plot file
         plotting.main()# call the plotting file to start making a scatter plot
         print("Plotting...")
+
 
 button = tk.Button(root, text="Submit", command=get_inputs)
 button.pack()

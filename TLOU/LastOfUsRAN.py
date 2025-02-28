@@ -1,12 +1,18 @@
 import random
 import math
 import statistics
+import sys
+import os
+
 
 import tkinter as tk
 from tkinter import simpledialog
 root = tk.Tk() # Create a hidden Tkinter root window
 root.withdraw()  # Hide the main window
 
+
+# Get the parent directory and add it to the path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import plotting # The file where the point graphing takes palace
 import artifact # My library for Commonly Used Modules
 
