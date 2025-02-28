@@ -1,6 +1,6 @@
 """
-This file is a dedicated function file, for reoccuring functions
-to live so this file can just be imported as a module, and the 
+This file is a dedicated function library, for reoccuring functions
+to live so this file can just be imported as a library, and the 
 functions called to save space and time.
 -- LWK, 02/27/2025 6:43 PM MST
 """

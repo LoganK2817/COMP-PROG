@@ -4,20 +4,15 @@ import statistics
 
 import tkinter as tk
 from tkinter import simpledialog
-root = tk.Tk() # Create a hidden Tkinter root window
-root.withdraw()  # Hide the main window
+root = tk.Tk() # Create a Tkinter root window
+root.title("Movement Simulation") # Name the Tkinter window
+root.geometry("400x250") # Size the Tkinter window
 
 import plotting # The file where the point graphing takes palace
 import artifact # My library for Commonly Used Modules
 
-
-
-
-
 outFile = open("TLOF.txt", "w") # open/create outPut file
 plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
-
-
 
 
 class ZombieTypes: # functions for the simulation of each zombie movement type
@@ -93,30 +88,66 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
             outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") #Writes the second line of output file for the given trail
             outFile.write(f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") #Wries thrid line of output file for the given trail
             outFile.write("-" * 40 + "\n") #Writes a visible line break under the block of trial information
-  
-def main(): # Main program calling and handling
-
-
-    # Get inputs using the functions
-    stepVariation = [artifact.get_integer("How Many Steps: ")]
-    trials = artifact.get_integer("How Many Trials: ")
-    typ = artifact.get_string("Zombie Kind? : ")
-
-    # Destroy the Tkinter root window after input is collected
-    root.destroy()
-
-    print(f"{stepVariation} | {trials} | {typ}") # prints the inputed variables to the command line
-
-    simulate(stepVariation, trials, typ) # passes the inputed variables through to the actual simulations
     
-    outFile.close() # closes the output file
-    plotFile.close() # closes the plot file
-    plotting.main() # call the plotting file to start making a scatter plot
+    return True
     
+# Create first label and entry field
+label_1 = tk.Label(root, text="Enter How many steps to simulate:")
+label_1.pack()
+entry_1 = tk.Entry(root)
+entry_1.pack()
+
+# Create second label and entry field
+label_2 = tk.Label(root, text="Enter How many trials to simulate:")
+label_2.pack()
+entry_2 = tk.Entry(root)
+entry_2.pack()
+
+# Create third label and entry field
+label_3 = tk.Label(root, text="Enter what kind to simulate:")
+label_3.pack()
+entry_3 = tk.Entry(root)
+entry_3.pack()
+
+
+# Function to get input values
+def get_inputs():
+    sim = False
     
+    # Convert first input into a list of integers
+    val1 = entry_1.get().split(",")
+    try:
+        val1 = [int(item.strip()) for item in val1]  # Convert to integers
+    except ValueError:
+        print("Error: Input 1 must be a list of integers (e.g., 10, 20, 30)")
+        return  # Stop execution if conversion fails
 
-main() # calls the main function with the actual shit in it
+    # Convert second input into an integer safely
+    try:
+        val2 = int(entry_2.get())
+    except ValueError:
+        print("Error: Input 2 must be an integer!")
+        return  # Stop execution if conversion fails
 
+    # Third input remains a string
+    val3 = entry_3.get()
 
-# maybe next itteration will change the color of the dots on the graph for each trial. i.e; trial 1 is blue, trial 2 is red, ect.
+    # Debugging print to verify data types
+    print(f"List Input (val1): {val1} (type: {type(val1)})")
+    print(f"Integer Input (val2): {val2} (type: {type(val2)})")
+    print(f"String Input (val3): {val3} (type: {type(val3)})")
 
+    # Call simulate function with corrected values
+    sim = simulate(val1, val2, val3)
+
+    if sim == True:
+        outFile.close() # closes the output file
+        plotFile.close() # closes the plot file
+        plotting.main()# call the plotting file to start making a scatter plot
+        print("Plotting...")
+
+button = tk.Button(root, text="Submit", command=get_inputs)
+button.pack()
+
+# Run the Tkinter event loop
+root.mainloop()
