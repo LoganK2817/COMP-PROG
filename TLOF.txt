@@ -1,0 +1,4 @@
+Clicker random walk of 100 steps, 450000 trials:
+Mean = 21.1 | CV = 0.34
+Max = 53.01 | Min = 0.0
+----------------------------------------

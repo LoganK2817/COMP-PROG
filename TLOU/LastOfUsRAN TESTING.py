@@ -3,14 +3,11 @@ import math
 import statistics
 import sys
 import os
-
 import tkinter as tk
 from tkinter import simpledialog
 root = tk.Tk() # Create a Tkinter root window
 root.title("Movement Simulation") # Name the Tkinter window
 root.geometry("400x250") # Size the Tkinter window
-
-
 # Get the parent directory and add it to the path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import plotting # The file where the point graphing takes palace
@@ -35,6 +32,7 @@ class ZombieTypes: # functions for the simulation of each zombie movement type
     
 def simulate(stepVariation, trials, typ): #simulate the movement according to the variables passed through
     
+    print("-*-*-*-*-Simulating...")
     
     zombie_types = { #word bank for the zombie type functions compaired to the abreviated entry variable
         "sham": ("Shambler", ZombieTypes.shambler),
@@ -87,7 +85,7 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
             for pos in endingPos:
                 preCleaned += 1
                 
-            print(f"{preCleaned}\n {postCleaned}")
+            print(f"End points Collected: {preCleaned}\nUnique Points: {postCleaned}")
                 
             outFile.write(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") #Writes the first line of output file for the given trail
             outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") #Writes the second line of output file for the given trail
@@ -97,6 +95,8 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
     return True
     
 
+
+print("-*-*-*-*-Initialzing Program. opening window to collect variables...")
 # Create first label and entry field
 label_1 = tk.Label(root, text="Enter How many steps to simulate:")
 label_1.pack()
@@ -118,6 +118,9 @@ entry_3.pack()
 
 # Function to get input values
 def get_inputs():
+    
+    print("-*-*-*-*-Passing Inputs...")
+    
     sim = False
     
     # Convert first input into a list of integers
@@ -139,9 +142,9 @@ def get_inputs():
     val3 = entry_3.get()
 
     # Debugging print to verify data types
-    print(f"List Input (val1): {val1} (type: {type(val1)})")
+    """print(f"List Input (val1): {val1} (type: {type(val1)})")
     print(f"Integer Input (val2): {val2} (type: {type(val2)})")
-    print(f"String Input (val3): {val3} (type: {type(val3)})")
+    print(f"String Input (val3): {val3} (type: {type(val3)})")"""
 
     # Call simulate function with corrected values
     sim = simulate(val1, val2, val3)
@@ -149,8 +152,9 @@ def get_inputs():
     if sim == True:
         outFile.close() # closes the output file
         plotFile.close() # closes the plot file
+        print("-*-*-*-*-Plotting...")
         plotting.main()# call the plotting file to start making a scatter plot
-        print("Plotting...")
+        
 
 
 button = tk.Button(root, text="Submit", command=get_inputs)
@@ -158,3 +162,10 @@ button.pack()
 
 # Run the Tkinter event loop
 root.mainloop()
+
+
+"""
+Next change terminal stage messages, to a window
+that pops up with the stages instead?
+
+"""
