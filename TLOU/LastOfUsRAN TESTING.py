@@ -3,13 +3,14 @@ import math
 import statistics
 import sys
 import os
+
 import tkinter as tk
 from tkinter import simpledialog
 root = tk.Tk() # Create a Tkinter root window
 root.title("Movement Simulation") # Name the Tkinter window
 root.geometry("400x250") # Size the Tkinter window
-# Get the parent directory and add it to the path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) # Get the parent directory and add it to the path
 import plotting # The file where the point graphing takes palace
 import artifact # My library for Commonly Used Modules
 
@@ -30,29 +31,29 @@ class ZombieTypes: # functions for the simulation of each zombie movement type
     def stalker():
         return random.choice(["east", "west"])
     
-def simulate(stepVariation, trials, typ): #simulate the movement according to the variables passed through
+def simulate(stepVariation, trials, typ): # simulate the movement according to the variables passed through
     
     print("-*-*-*-*-Simulating...")
     
-    zombie_types = { #word bank for the zombie type functions compaired to the abreviated entry variable
+    zombie_types = { # word bank for the zombie type functions compaired to the abreviated entry variable
         "sham": ("Shambler", ZombieTypes.shambler),
         "click": ("Clicker", ZombieTypes.clicker),
         "stalk": ("Stalker", ZombieTypes.stalker),
     }
 
-    if typ == "all": #deciphers the inputed zombie type according to the bank, and handles using them all. 
+    if typ == "all": # deciphers the inputed zombie type according to the bank, and handles using them all. 
         walker_types = zombie_types.items()
     else:
         walker_types = [(typ, zombie_types.get(typ))]
 
-    for walker_key, (zombie_typ, zombie_func) in walker_types: #
+    for walker_key, (zombie_typ, zombie_func) in walker_types: # runs the simulation for each zombie type selected
         for stepVarNum in stepVariation:
-            endingDist = [] #stores the ending distance traveled at the end of each trial ran
-            endingPos = []
-            for _ in range(trials): #simulates the movement for the desired amount of times according to the trial var passed
-                x_pos, y_pos = 0, 0 #stores the location of the simulated zombie
+            endingDist = [] # stores the ending distance traveled at the end of each trial ran
+            endingPos = [] # Stores the ending Position after each trial 
+            for _ in range(trials): # simulates the movement for the desired amount of times according to the trial var passed
+                x_pos, y_pos = 0, 0 # stores the location of the simulated zombie
                 
-                for _ in range(stepVarNum): #simulates the movment for the desired type for each step requested
+                for _ in range(stepVarNum): # simulates the movment for the desired type for each step requested
                     direct = zombie_func()
                     if direct == "north":
                         y_pos += 1
@@ -63,22 +64,22 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
                     elif direct == "west":
                         x_pos -= 1
 
-                dist_traveled = math.sqrt(x_pos**2 + y_pos**2) #calculates the distance traveled from origin with pythagorean theorem
-                endingDist.append(round(dist_traveled, 2)) #adds the ending distance traveled to the endingDist list for later usage
+                dist_traveled = math.sqrt(x_pos**2 + y_pos**2) # calculates the distance traveled from origin with pythagorean theorem
+                endingDist.append(round(dist_traveled, 2)) # adds the ending distance traveled to the endingDist list for later usage
                 endingPos.append((x_pos,y_pos))
             
-            avgDist = sum(endingDist) / len(endingDist) #finds average distance traveled out of the trials ran
-            minDist = min(endingDist) #finds the min distance traveled out of the trials ran
-            maxDist = max(endingDist) #finds the max distance traveled out of the trials ran
+            avgDist = sum(endingDist) / len(endingDist) # finds average distance traveled out of the trials ran
+            minDist = min(endingDist) # finds the min distance traveled out of the trials ran
+            maxDist = max(endingDist) # finds the max distance traveled out of the trials ran
             stdDev = statistics.stdev(endingDist) if len(endingDist) > 1 else 0 #These two lines find
-            cvDist = stdDev / avgDist if avgDist != 0 else 0 #the CV of the trials 
+            cvDist = stdDev / avgDist if avgDist != 0 else 0 # The Coefficient of Variance of the trials 
             
-            filteredList = artifact.remove_dupes(endingPos)
+            filteredList = artifact.remove_dupes(endingPos) # Filters the reoccuring points out of ending postion list
             
-            preCleaned = 0
-            postCleaned = 0
+            preCleaned = 0 # count for how many points where collected - AKA how many trials
+            postCleaned = 0 # count for how many unique points were found
             
-            for pos in filteredList:
+            for pos in filteredList: # writes the unique positions 
                 plotFile.write(f"{pos}\n")
                 postCleaned += 1
                 
@@ -87,10 +88,10 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
                 
             print(f"End points Collected: {preCleaned}\nUnique Points: {postCleaned}")
                 
-            outFile.write(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") #Writes the first line of output file for the given trail
-            outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") #Writes the second line of output file for the given trail
-            outFile.write(f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") #Wries thrid line of output file for the given trail
-            outFile.write("-" * 40 + "\n") #Writes a visible line break under the block of trial information
+            outFile.write(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") # Writes the first line of output file for the given trail
+            outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output file for the given trail
+            outFile.write(f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output file for the given trail
+            outFile.write("-" * 40 + "\n") # Writes a visible line break under the block of trial information
     
     return True
     

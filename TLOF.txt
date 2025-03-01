@@ -1,4 +1,4 @@
-Clicker random walk of 100 steps, 450000 trials:
-Mean = 21.1 | CV = 0.34
-Max = 53.01 | Min = 0.0
+Shambler random walk of 10 steps, 111 trials:
+Mean = 2.7 | CV = 0.53
+Max = 7.21 | Min = 0.0
 ----------------------------------------
