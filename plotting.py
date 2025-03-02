@@ -11,7 +11,7 @@ def extract_coordinates(filename):
     # Convert to list of tuples with integers
     return [(int(x), int(y)) for x, y in coordinates]
 
-def plot_points(coordinates):
+def plot_points(coordinates,title):
     x_vals, y_vals = zip(*coordinates)  # Unpack x and y values
     
     plt.figure(figsize=(10, 6))
@@ -22,17 +22,17 @@ def plot_points(coordinates):
     plt.legend()
     plt.xlabel('X-axis')
     plt.ylabel('Y-axis')
-    plt.title('Scatter Plot of Points')
+    plt.title(title)
     plt.show()
     
 
 def closePlot():
     plt.close()
     
-def main():
+def main(title):
     
     # Load and plot data
     filename = 'TLOF_Points.txt'
     coordinates = extract_coordinates(filename)
-    plot_points(coordinates)
+    plot_points(coordinates,title)
 

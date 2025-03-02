@@ -87,11 +87,11 @@ def simulate(stepVariation, trials, typ): # simulate the movement according to t
             preCleaned = 0 # count for how many points where collected - AKA how many trials
             postCleaned = 0 # count for how many unique points were found
             
-            for pos in filteredList: # writes the unique positions 
-                plotFile.write(f"{pos}\n")
-                postCleaned += 1
+            for pos in filteredList: # runs through the ammount of unique points  
+                plotFile.write(f"{pos}\n") # write unque positions to file 
+                postCleaned += 1 # increments the count of unique postions to report to user
                 
-            for pos in endingPos:
+            for pos in endingPos: # counts the total points collected (trials ran)
                 preCleaned += 1
                 
             print(f"End points Collected: {preCleaned}\nUnique Points: {postCleaned}")
@@ -142,12 +142,11 @@ def get_inputs(): # Function to get input values
         if sim == True:
             plotFile.close() # closes the plot file
             print("-*-*-*-*-Plotting...")
-            plotting.main()# call the plotting file to start making a scatter plot
+            plotting.main("Unique End Points Simulated")# call the plotting file to start making a scatter plot
+            
     elif firstTime: # if it's not the first time, reopen the 'plotFile' and run simulation
         plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
         plotting.closePlot()
-        result.destroy()
-        remake_Datawindow()
 
         sim = simulate(val1, val2, val3)
         if sim == True:
