@@ -18,6 +18,7 @@ import plotting # The file where the point graphing takes palace
 import artifact # My library for Commonly Used Modules
 
 plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
+plotName = "Unique End Points Simulated"
 
 firstTime = False
 
@@ -142,17 +143,18 @@ def get_inputs(): # Function to get input values
         if sim == True:
             plotFile.close() # closes the plot file
             print("-*-*-*-*-Plotting...")
-            plotting.main("Unique End Points Simulated")# call the plotting file to start making a scatter plot
+            plotting.main(plotName)# call the plotting file to start making a scatter plot
             
     elif firstTime: # if it's not the first time, reopen the 'plotFile' and run simulation
         plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
         plotting.closePlot()
 
+
         sim = simulate(val1, val2, val3)
         if sim == True:
             plotFile.close() # closes the plot file
             print("-*-*-*-*-Plotting...")
-            plotting.main()# call the plotting file to start making a scatter plot
+            plotting.main(plotName)# call the plotting file to start making a scatter plot
 
 def end_Program(): # Function to close the Tkinter window, thus ending the program.
     print("Terminating Program...")
@@ -196,5 +198,4 @@ root.mainloop() # Run the Tkinter event loop
 Next change terminal stage messages, to a window
 that pops up with the stages instead?
 
-Bring 'TLOF.txt' into a window instead of a file output?
 """
