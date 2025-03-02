@@ -18,6 +18,7 @@ import plotting # The file where the point graphing takes palace
 import artifact # My library for Commonly Used Modules
 
 plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
+plotName = "Unique End Points Simulated"
 
 firstTime = False
 
@@ -34,10 +35,10 @@ class ZombieTypes: # functions for the simulation of each zombie movement type
     def stalker():
         return random.choice(["east", "west"])
     
-def remake_Datawindow():
-    result = tk.Toplevel(width="400", height="400") # open a window for the simulation data
-    result.title("Simulation Data") # Name the Data window
-    result.withdraw() # hide the result window untill it's needed
+def update_window():
+    # Destroy all widgets inside root
+    for widget in result.winfo_children():
+        widget.destroy()
 
 def simulate(stepVariation, trials, typ): # simulate the movement according to the variables passed through
     
@@ -98,15 +99,28 @@ def simulate(stepVariation, trials, typ): # simulate the movement according to t
 
 
             result.deiconify()
+            
+            if not firstTime:
+                outLine1=tk.Label(result, text=f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") # Writes the first line of the output window
+                outLine2=tk.Label(result, text=f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output window for the given trail
+                outLine3=tk.Label(result, text=f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output window for the given trail
+                outLine4=tk.Label(result, text="-" * 40 + "\n") # Writes a visible line break under the block of trial information
+                outLine1.pack()
+                outLine2.pack()
+                outLine3.pack()
+                outLine4.pack()
+            elif firstTime:
+                update_window()
+                outLine1=tk.Label(result, text=f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") # Writes the first line of the output window
+                outLine2=tk.Label(result, text=f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output window for the given trail
+                outLine3=tk.Label(result, text=f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output window for the given trail
+                outLine4=tk.Label(result, text="-" * 40 + "\n") # Writes a visible line break under the block of trial information
+                outLine1.pack()
+                outLine2.pack()
+                outLine3.pack()
+                outLine4.pack()
 
-            outLine1=tk.Label(result, text=f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") # Writes the first line of the output window
-            outLine2=tk.Label(result, text=f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output window for the given trail
-            outLine3=tk.Label(result, text=f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output window for the given trail
-            outLine4=tk.Label(result, text="-" * 40 + "\n") # Writes a visible line break under the block of trial information
-            outLine1.pack()
-            outLine2.pack()
-            outLine3.pack()
-            outLine4.pack()
+            
     
     return True
     
@@ -142,17 +156,18 @@ def get_inputs(): # Function to get input values
         if sim == True:
             plotFile.close() # closes the plot file
             print("-*-*-*-*-Plotting...")
-            plotting.main("Unique End Points Simulated")# call the plotting file to start making a scatter plot
+            plotting.main(plotName)# call the plotting file to start making a scatter plot
             
     elif firstTime: # if it's not the first time, reopen the 'plotFile' and run simulation
         plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
         plotting.closePlot()
 
+
         sim = simulate(val1, val2, val3)
         if sim == True:
             plotFile.close() # closes the plot file
             print("-*-*-*-*-Plotting...")
-            plotting.main()# call the plotting file to start making a scatter plot
+            plotting.main(plotName)# call the plotting file to start making a scatter plot
 
 def end_Program(): # Function to close the Tkinter window, thus ending the program.
     print("Terminating Program...")
@@ -196,5 +211,4 @@ root.mainloop() # Run the Tkinter event loop
 Next change terminal stage messages, to a window
 that pops up with the stages instead?
 
-Bring 'TLOF.txt' into a window instead of a file output?
 """

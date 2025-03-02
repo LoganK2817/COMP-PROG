@@ -22,7 +22,7 @@ import artifact # My library for Commonly Used Modules
 
 outFile = open("TLOF.txt", "w") # open/create outPut file
 plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
-
+plotName = "Unique End Points Simulated"
 
 
 
@@ -93,7 +93,7 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
             for pos in endingPos:
                 preCleaned += 1
                 
-            print(f"{preCleaned}\n {postCleaned}")
+            print(f"Total Points Collected: {preCleaned}\nUnique Points Collected: {postCleaned}")
                 
             outFile.write(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") #Writes the first line of output file for the given trail
             outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") #Writes the second line of output file for the given trail
@@ -113,11 +113,11 @@ def main(): # Main program calling and handling
 
     print(f"{stepVariation} | {trials} | {typ}") # prints the inputed variables to the command line
 
-    simulate(stepVariation, trials, typ) # passes the inputed variables through to the actual simulations
+    simulate(stepVariation, trials, typ.lower()) # passes the inputed variables through to the actual simulations
     
     outFile.close() # closes the output file
     plotFile.close() # closes the plot file
-    plotting.main() # call the plotting file to start making a scatter plot
+    plotting.main(plotName) # call the plotting file to start making a scatter plot
     
     
 

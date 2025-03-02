@@ -77,6 +77,14 @@ def simulate(stepVariation, trials, typ): #simulate the movement according to th
             stdDev = statistics.stdev(endingDist) if len(endingDist) > 1 else 0 #These two lines find
             cvDist = stdDev / avgDist if avgDist != 0 else 0 #the CV of the trials 
             
+            
+            print(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") #Writes the first line of output file for the given trail
+            print(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") #Writes the second line of output file for the given trail
+            print(f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") #Wries thrid line of output file for the given trail
+            print("-" * 40 + "\n") #Writes a visible line break under the block of trial information
+            
+            
+            
             outFile.write(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") #Writes the first line of output file for the given trail
             outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") #Writes the second line of output file for the given trail
             outFile.write(f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") #Wries thrid line of output file for the given trail
