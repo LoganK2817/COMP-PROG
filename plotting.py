@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import re
-import time
 
 def extract_coordinates(filename):
     with open(filename, 'r') as file:
@@ -26,6 +25,9 @@ def plot_points(coordinates):
     plt.title('Scatter Plot of Points')
     plt.show()
     
+
+def closePlot():
+    plt.close()
     
 def main():
     

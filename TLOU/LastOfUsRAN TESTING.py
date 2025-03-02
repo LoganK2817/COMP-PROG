@@ -147,6 +147,7 @@ def get_inputs(): # Function to get input values
 def end_Program(): # Function to close the Tkinter window, thus ending the program.
     print("Terminating Program...")
     root.destroy()
+    plotting.closePlot()
 
 
 
