@@ -9,6 +9,9 @@ from tkinter import simpledialog
 root = tk.Tk() # Create a Tkinter root window
 root.title("Movement Simulation") # Name the Tkinter window
 root.geometry("400x250") # Size the Tkinter window
+result = tk.Toplevel(width="400", height="400") # open a window for the simulation data
+result.title("Simulation Data") # Name the Data window
+result.withdraw() # hide the result window untill it's needed
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) # Get the parent directory and add it to the path
 import plotting # The file where the point graphing takes palace
@@ -31,6 +34,11 @@ class ZombieTypes: # functions for the simulation of each zombie movement type
     def stalker():
         return random.choice(["east", "west"])
     
+def remake_Datawindow():
+    result = tk.Toplevel(width="400", height="400") # open a window for the simulation data
+    result.title("Simulation Data") # Name the Data window
+    result.withdraw() # hide the result window untill it's needed
+
 def simulate(stepVariation, trials, typ): # simulate the movement according to the variables passed through
     
     print("-*-*-*-*-Simulating...")
@@ -88,13 +96,13 @@ def simulate(stepVariation, trials, typ): # simulate the movement according to t
                 
             print(f"End points Collected: {preCleaned}\nUnique Points: {postCleaned}")
 
-            result = tk.Toplevel(width="400", height="400")
 
-            outLine1=tk.Label(result, text=f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n")
-            outLine2=tk.Label(result, text=f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output file for the given trail
-            outLine3=tk.Label(result, text=f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output file for the given trail
+            result.deiconify()
+
+            outLine1=tk.Label(result, text=f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") # Writes the first line of the output window
+            outLine2=tk.Label(result, text=f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output window for the given trail
+            outLine3=tk.Label(result, text=f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output window for the given trail
             outLine4=tk.Label(result, text="-" * 40 + "\n") # Writes a visible line break under the block of trial information
-
             outLine1.pack()
             outLine2.pack()
             outLine3.pack()
@@ -128,15 +136,18 @@ def get_inputs(): # Function to get input values
     # Third input remains a string
     val3 = entry_3.get()
 
-    if not firstTime:
+    if not firstTime: # Check for if it's the first time running the program
         sim = simulate(val1, val2, val3)
         firstTime = 1
         if sim == True:
             plotFile.close() # closes the plot file
             print("-*-*-*-*-Plotting...")
             plotting.main()# call the plotting file to start making a scatter plot
-    elif firstTime:
+    elif firstTime: # if it's not the first time, reopen the 'plotFile' and run simulation
         plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
+        plotting.closePlot()
+        result.destroy()
+        remake_Datawindow()
 
         sim = simulate(val1, val2, val3)
         if sim == True:
@@ -152,6 +163,7 @@ def end_Program(): # Function to close the Tkinter window, thus ending the progr
 
 
 print("-*-*-*-*-Initialzing Program. opening window to collect variables...")
+
 
 # Create first label and entry field -------------
 label_1 = tk.Label(root, text="Enter How many steps to simulate:")
