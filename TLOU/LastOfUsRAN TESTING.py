@@ -14,9 +14,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
 import plotting # The file where the point graphing takes palace
 import artifact # My library for Commonly Used Modules
 
-outFile = open("TLOF.txt", "w") # open/create outPut file
 plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
 
+firstTime = False
 
 class ZombieTypes: # functions for the simulation of each zombie movement type
     @staticmethod
@@ -87,38 +87,24 @@ def simulate(stepVariation, trials, typ): # simulate the movement according to t
                 preCleaned += 1
                 
             print(f"End points Collected: {preCleaned}\nUnique Points: {postCleaned}")
-                
-            outFile.write(f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n") # Writes the first line of output file for the given trail
-            outFile.write(f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output file for the given trail
-            outFile.write(f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output file for the given trail
-            outFile.write("-" * 40 + "\n") # Writes a visible line break under the block of trial information
+
+            result = tk.Toplevel(width="400", height="400")
+
+            outLine1=tk.Label(result, text=f"{zombie_typ} random walk of {stepVarNum} steps, {trials} trials:\n")
+            outLine2=tk.Label(result, text=f"Mean = {round(avgDist, 2)} | CV = {round(cvDist, 2)}\n") # Writes the second line of output file for the given trail
+            outLine3=tk.Label(result, text=f"Max = {round(maxDist, 2)} | Min = {round(minDist, 2)}\n") # Wries thrid line of output file for the given trail
+            outLine4=tk.Label(result, text="-" * 40 + "\n") # Writes a visible line break under the block of trial information
+
+            outLine1.pack()
+            outLine2.pack()
+            outLine3.pack()
+            outLine4.pack()
     
     return True
     
-
-
-print("-*-*-*-*-Initialzing Program. opening window to collect variables...")
-# Create first label and entry field
-label_1 = tk.Label(root, text="Enter How many steps to simulate:")
-label_1.pack()
-entry_1 = tk.Entry(root)
-entry_1.pack()
-
-# Create second label and entry field
-label_2 = tk.Label(root, text="Enter How many trials to simulate:")
-label_2.pack()
-entry_2 = tk.Entry(root)
-entry_2.pack()
-
-# Create third label and entry field
-label_3 = tk.Label(root, text="Enter what kind to simulate:")
-label_3.pack()
-entry_3 = tk.Entry(root)
-entry_3.pack()
-
-
-# Function to get input values
-def get_inputs():
+def get_inputs(): # Function to get input values
+    global firstTime
+    global plotFile
     
     print("-*-*-*-*-Passing Inputs...")
     
@@ -142,31 +128,61 @@ def get_inputs():
     # Third input remains a string
     val3 = entry_3.get()
 
-    # Debugging print to verify data types
-    """print(f"List Input (val1): {val1} (type: {type(val1)})")
-    print(f"Integer Input (val2): {val2} (type: {type(val2)})")
-    print(f"String Input (val3): {val3} (type: {type(val3)})")"""
+    if not firstTime:
+        sim = simulate(val1, val2, val3)
+        firstTime = 1
+        if sim == True:
+            plotFile.close() # closes the plot file
+            print("-*-*-*-*-Plotting...")
+            plotting.main()# call the plotting file to start making a scatter plot
+    elif firstTime:
+        plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
 
-    # Call simulate function with corrected values
-    sim = simulate(val1, val2, val3)
+        sim = simulate(val1, val2, val3)
+        if sim == True:
+            plotFile.close() # closes the plot file
+            print("-*-*-*-*-Plotting...")
+            plotting.main()# call the plotting file to start making a scatter plot
 
-    if sim == True:
-        outFile.close() # closes the output file
-        plotFile.close() # closes the plot file
-        print("-*-*-*-*-Plotting...")
-        plotting.main()# call the plotting file to start making a scatter plot
-        
+def end_Program(): # Function to close the Tkinter window, thus ending the program.
+    print("Terminating Program...")
+    root.destroy()
 
 
-button = tk.Button(root, text="Submit", command=get_inputs)
-button.pack()
 
-# Run the Tkinter event loop
-root.mainloop()
+print("-*-*-*-*-Initialzing Program. opening window to collect variables...")
+
+# Create first label and entry field -------------
+label_1 = tk.Label(root, text="Enter How many steps to simulate:")
+label_1.pack()
+entry_1 = tk.Entry(root)
+entry_1.pack()
+
+# Create second label and entry field -------------
+label_2 = tk.Label(root, text="Enter How many trials to simulate:")
+label_2.pack()
+entry_2 = tk.Entry(root)
+entry_2.pack()
+
+# Create third label and entry field -------------
+label_3 = tk.Label(root, text="Enter what kind to simulate:")
+label_3.pack()
+entry_3 = tk.Entry(root)
+entry_3.pack()
+
+
+runButton = tk.Button(root, text="Submit", command=get_inputs) # Button for running the program with given values
+runButton.pack() # set button alignment
+
+Button = tk.Button(root, text="Close", command=end_Program) # Button for closing the window, thus ending the program
+Button.pack() # set button alignment
+
+root.mainloop() # Run the Tkinter event loop
 
 
 """
 Next change terminal stage messages, to a window
 that pops up with the stages instead?
 
+Bring 'TLOF.txt' into a window instead of a file output?
 """
