@@ -16,7 +16,7 @@ character_speed = 5
   
 # Jump settings  
 is_jumping = False  
-jump_velocity = 9  
+jump_velocity = 5  
 gravity = 0.1 
   
 # Platform settings  
@@ -63,14 +63,15 @@ while running:
                 on_ground = True  
   
     # Check if on the ground  
-    """if character_y >= screen_height - character_height:  
+    if character_y >= screen_height - character_height:  
         character_y = screen_height - character_height  
-        is_jumping = False  
-        on_ground = True  
+        on_ground = True 
+    
+        
   
     # Gravity effect when not on a platform or ground  
     if not on_ground:  
-        character_y += gravity  """
+        character_y += .5
   
     # Clear screen  
     screen.fill((0, 0, 0))  
