@@ -1,6 +1,7 @@
 import pygame  
   
 pygame.init()  
+pygame.font.init()  # Initialize font module  
   
 # Screen dimensions  
 screen_width = 800  
@@ -17,7 +18,7 @@ character_speed = 5
 # Jump settings  
 is_jumping = False  
 jump_velocity = 5  
-gravity = 0.1 
+gravity = 0.1  
   
 # Platform settings  
 platforms = [  
@@ -32,6 +33,16 @@ tokens = [
     pygame.Rect(450, 270, 20, 20),  
     pygame.Rect(250, 170, 20, 20)  
 ]  
+  
+# Score  
+score = 0  
+  
+# Font settings  
+font = pygame.font.SysFont(None, 55)  
+  
+def display_message(message):  
+    text = font.render(message, True, (255, 255, 255))  
+    screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 - text.get_height() // 2))  
   
 # Main game loop  
 running = True  
@@ -65,13 +76,19 @@ while running:
     # Check if on the ground  
     if character_y >= screen_height - character_height:  
         character_y = screen_height - character_height  
-        on_ground = True 
-    
-        
+        on_ground = True  
   
     # Gravity effect when not on a platform or ground  
     if not on_ground:  
-        character_y += .5
+        character_y += 0.5  
+  
+    # Token collection  
+    character_rect = pygame.Rect(character_x, character_y, character_width, character_height)  
+    collected_tokens = [token for token in tokens if character_rect.colliderect(token)]  
+    for token in collected_tokens:  
+        tokens.remove(token)  
+        score += 1  
+        print(f"Score: {score}")  
   
     # Clear screen  
     screen.fill((0, 0, 0))  
@@ -85,7 +102,11 @@ while running:
         pygame.draw.rect(screen, (255, 255, 0), token)  
   
     # Draw character  
-    pygame.draw.rect(screen, (255, 0, 0), (character_x, character_y, character_width, character_height))  
+    pygame.draw.rect(screen, (255, 0, 0), character_rect)  
+  
+    # Check for win condition  
+    if score == 3:  
+        display_message("You Win!")  
   
     pygame.display.flip()  
   
