@@ -13,7 +13,7 @@ character_width = 50
 character_height = 50  
 character_x = screen_width // 2  
 character_y = screen_height - character_height  
-character_speed = 5  
+character_speed = 2  
   
 # Jump settings  
 is_jumping = False  
@@ -51,7 +51,7 @@ while running:
         if event.type == pygame.QUIT:  
             running = False  
   
-    keys = pygame.key.get_pressed()  
+    keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and character_x > 0:  
         character_x -= character_speed  
     if keys[pygame.K_RIGHT] and character_x < screen_width - character_width:  
@@ -76,11 +76,14 @@ while running:
     # Check if on the ground  
     if character_y >= screen_height - character_height:  
         character_y = screen_height - character_height  
-        on_ground = True  
+        on_ground = True
+        if jump_velocity < -10:
+            jump_velocity = 5
+            is_jumping = False
   
     # Gravity effect when not on a platform or ground  
     if not on_ground:  
-        character_y += 0.5  
+        character_y += 0.5
   
     # Token collection  
     character_rect = pygame.Rect(character_x, character_y, character_width, character_height)  
@@ -109,5 +112,8 @@ while running:
         display_message("You Win!")  
   
     pygame.display.flip()  
+    
+    
+    print(f"Jumpstatus: {is_jumping}\nJumpVel {jump_velocity}\nGroundStatus: {on_ground}")
   
 pygame.quit()  
