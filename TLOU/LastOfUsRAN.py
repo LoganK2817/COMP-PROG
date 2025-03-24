@@ -5,7 +5,7 @@ import sys
 import os
 
 import tkinter as tk
-from tkinter import simpledialog
+
 root = tk.Tk() # Create a Tkinter root window
 root.title("Movement Simulation") # Name the Tkinter window
 root.geometry("400x250") # Size the Tkinter window
