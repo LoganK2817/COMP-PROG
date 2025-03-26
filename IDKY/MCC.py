@@ -51,9 +51,6 @@ class Warehouse:
             print("ERROR Cannot Remove, not enough material.")
             ark.br()
             return 0
-            
-        
-
         
              
     @staticmethod
@@ -79,25 +76,33 @@ class Opperations:
     
     @staticmethod
     def crafter(item,ammount):
+        item_types = {
+            "scog": ["smallCogs"],
+            "andcase": ["andesiteCasing"],
+            "gearbox": ["gearBox", ["andesiteCasing","smallCogs"],[1,4]]
+        }
+        
+        itemInfo = item_types.get(item)
+        
+        itemTitle = itemInfo[0]
+        itemNeeds = itemInfo[1]
+        itemNeedsQuantity = itemInfo[2]
+        
+        
+        
+        
         return
             
 
 
 def main():
-    
     Warehouse.get_inventory()
     
     
     task = input("Enter Operation to perform (opp,item,count); ")
-    
-    
     task = task.split(",")
-    
-    
     itemID = task[1]
-    
     itemCount = int(task[2])
-    
     oppType = str(task[0])
     
     if oppType.lower() == "add":
@@ -110,8 +115,9 @@ def main():
     else:
         print(f"Handling Error: Invalid Opperation: {oppType}")
 
+
+
     Warehouse.get_inventory()
-    
     reset()
     
     
