@@ -53,11 +53,6 @@ def get_integer(prompt):
 to input a int, and returns the input."""
 
 #--------------
-
-
-
-def defaultWindow(name):
-
-    root = tk.Tk() # Create a Tkinter root window
-    root.title(f"{name}") # Name the Tkinter window
-    root.geometry("400x250") # Size the Tkinter window
+# Line break function
+def br(lines=12):
+    print("-"*lines)

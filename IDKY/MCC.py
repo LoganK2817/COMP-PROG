@@ -14,11 +14,17 @@ import tkinter as tk
 
 class totals:
     gearBox = 0
-    smallCogs = [4]
+    smallCogs = 4
     andesiteCasing = 1
 
 
 class Warehouse:
+    
+    @staticmethod
+    def get_inventory():
+        ark.br()
+        print(f"Andisite Casings: {totals.andesiteCasing}\nGearBoxes: {totals.gearBox}\nSmall Cogs: {totals.smallCogs}")
+        ark.br()
     
     
     @staticmethod
@@ -28,19 +34,27 @@ class Warehouse:
             "andcase": ["andesiteCasing", "Andesite Casing"],
             "gearbox": ["gearBox", "Gearbox"]
         }
-
-        item_info = item_types.get(item)
-        if not item_info:
-            return 0  # Invalid item
-
-        attr_name = item_info[0]
-        item_count = getattr(totals, attr_name, [0])
-
-        if item_count[0] >= amount:
-            setattr(totals, attr_name, item_count - amount)
-            return 1
+        
+        itemID = item
+        itemInfo = item_types.get(item)
+        
+        ItemName = itemInfo[1]
+        itemTitle = itemInfo[0]
+        
+        currentAmount = getattr(totals, itemTitle)
+        
+        
+        if amount <= currentAmount:
+            setattr(totals, itemTitle, currentAmount - amount)
         else:
+            ark.br()
+            print("ERROR Cannot Remove, not enough material.")
+            ark.br()
             return 0
+            
+        
+
+        
              
     @staticmethod
     def add_item(item, amount):
@@ -49,23 +63,16 @@ class Warehouse:
             "andcase": ["andesiteCasing", "Andesite Casing"],
             "gearbox": ["gearBox", "Gearbox"]
         }
-
-        print(f'Adding {amount} of {item}')
+        itemID = item
+        itemInfo = item_types.get(item)
         
-
-        item_info = item_types.get(item)
-        if not item_info:
-            return 0  # Invalid item
-
-        attr_name = item_info[0]
-        item_count = getattr(totals, attr_name, [0])
-
-        if item_count[0] >= 1:
-            setattr(totals, attr_name, item_count.append(amount))
-            print("attribute changed...")
-            return 1
-        else:
-            return 0
+        ItemName = itemInfo[1]
+        itemTitle = itemInfo[0]
+        
+        currentAmount = getattr(totals, itemTitle)
+        
+        
+        setattr(totals, itemTitle, currentAmount + amount)
         
         
 class Opperations:
@@ -78,12 +85,7 @@ class Opperations:
 
 def main():
     
-    
-    print(totals.andesiteCasing,totals.gearBox,totals.smallCogs)
-    
-    
-    
-    
+    Warehouse.get_inventory()
     
     
     task = input("Enter Operation to perform (opp,item,count); ")
@@ -91,31 +93,37 @@ def main():
     
     task = task.split(",")
     
+    
     itemID = task[1]
     
     itemCount = int(task[2])
     
-    opp_types = {
-        "add": Warehouse.add_item(itemID,itemCount),
-        "remove": Warehouse.remove_item(itemID, itemCount),
-        "craft": Opperations.crafter(itemID,itemCount)
-    }
+    oppType = str(task[0])
     
+    if oppType.lower() == "add":
+        Warehouse.add_item(itemID,itemCount)
+    elif oppType.lower() == "remove":
+        if Warehouse.remove_item(itemID,itemCount) == 0:
+            print("Warehouse ERROR - Please try again.")
+    elif oppType.lower() == "craft":
+        Opperations.crafter(itemID,itemCount)
+    else:
+        print(f"Handling Error: Invalid Opperation: {oppType}")
 
-    print(totals.andesiteCasing,totals.gearBox,totals.smallCogs)
+    Warehouse.get_inventory()
     
     reset()
     
     
 def reset():
     
-    try: restart = int(input("Restart Program? 1/0: "))
+    try: restart = int(input("Perform Another Action? 1/0: "))
     
     except ValueError:
         print("ValueError")
         reset()
     
-    if restart:
+    if restart == 1:
         print("resetting....")
         main()
     else:
