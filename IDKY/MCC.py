@@ -8,6 +8,9 @@ import artifact as ark
 import tkinter as tk
 
 
+#inventorySheet = open("MCCinventory.txt")
+
+
 # 1 Gearbox = 4 small cogs + 1 andesite cassing 
 
 
@@ -30,8 +33,8 @@ class Warehouse:
     @staticmethod
     def remove_item(item, amount):
         item_types = {
-            "scog": ["smallCogs", "Small Cog"],
-            "andcase": ["andesiteCasing", "Andesite Casing"],
+            "smallCogs": ["smallCogs", "Small Cog"],
+            "andesiteCasing": ["andesiteCasing", "Andesite Casing"],
             "gearbox": ["gearBox", "Gearbox"]
         }
         
@@ -46,6 +49,7 @@ class Warehouse:
         
         if amount <= currentAmount:
             setattr(totals, itemTitle, currentAmount - amount)
+            return 1
         else:
             ark.br()
             print("ERROR Cannot Remove, not enough material.")
@@ -56,9 +60,9 @@ class Warehouse:
     @staticmethod
     def add_item(item, amount):
         item_types = {
-            "scog": ["smallCogs", "Small Cog"],
-            "andcase": ["andesiteCasing", "Andesite Casing"],
-            "gearbox": ["gearBox", "Gearbox"]
+            "smallCogs": ["smallCogs", "Small Cog"],
+            "andesiteCasing": ["andesiteCasing", "Andesite Casing"],
+            "gearBox": ["gearBox", "Gearbox"]
         }
         itemID = item
         itemInfo = item_types.get(item)
@@ -70,6 +74,7 @@ class Warehouse:
         
         
         setattr(totals, itemTitle, currentAmount + amount)
+        return 1
         
         
 class Opperations:
@@ -79,7 +84,7 @@ class Opperations:
         item_types = {
             "scog": ["smallCogs"],
             "andcase": ["andesiteCasing"],
-            "gearbox": ["gearBox", ["andesiteCasing","smallCogs"],[1,4]]
+            "gearbox": ["gearBox", [totals.andesiteCasing,"andesiteCasing",totals.smallCogs,"smallCogs"],[1,4]]
         }
         
         itemInfo = item_types.get(item)
@@ -88,10 +93,19 @@ class Opperations:
         itemNeeds = itemInfo[1]
         itemNeedsQuantity = itemInfo[2]
         
+        for i in range(ammount):
+        
+            
+            if not Warehouse.remove_item(itemNeeds[1], itemNeedsQuantity[0]):
+                return print(f"ERROR could not remmove {itemNeeds[1]}")
+
+            if not Warehouse.remove_item(itemNeeds[3],itemNeedsQuantity[1]):
+                return print(f"ERROR could not remove {itemNeeds[3]}")
+            
+            if not Warehouse.add_item(itemTitle, ammount):
+                return print(f"ERROR could not add {itemTitle}")
         
         
-        
-        return
             
 
 
