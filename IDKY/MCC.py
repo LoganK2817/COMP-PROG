@@ -8,8 +8,8 @@ import artifact as ark
 import tkinter as tk
 
 
-#inventorySheet = open("MCCinventory.txt")
-
+inventorySheet = open("IDKY/MCCinventory.csv", "a")
+invSheet = open("IDKY/MCCinventory.csv", "r")
 
 # 1 Gearbox = 4 small cogs + 1 andesite cassing 
 
@@ -105,12 +105,46 @@ class Opperations:
             if not Warehouse.add_item(itemTitle, ammount):
                 return print(f"ERROR could not add {itemTitle}")
         
+   
+def closeInv():
+    inventorySheet.close()
         
-            
+def tempWrite(char = "N/A"):
+    if char == "":
+        char = "N/A"
+    
+    inventorySheet.write(f"{char}\n")  
+       
+def updateInvSheet():
+    inventorySheet.write(f"Andisite Casing: {totals.andesiteCasing}\n")
+    inventorySheet.write(f"Gearboxes: {totals.gearBox}\n")
+    inventorySheet.write(f"Small Cogs: {totals.smallCogs}\n")
 
+def readInv(itemID):
+    if itemID == "":
+        print(invSheet.read())
+    elif itemID == "smallCog":
+        print(invSheet.readlines(1))
 
 def main():
-    Warehouse.get_inventory()
+    
+    while True:
+
+        action = input("Enter action: ")
+        
+        if action == "write":
+            tempWrite(input("What to write: "))
+        elif action == "read":
+            readInv(input("What to read: "))
+        elif action == "close":
+            closeInv()
+        elif action == "update":
+            updateInvSheet()
+        else:
+            break
+
+    
+    """Warehouse.get_inventory()
     
     
     task = input("Enter Operation to perform (opp,item,count); ")
@@ -131,23 +165,29 @@ def main():
 
 
 
-    Warehouse.get_inventory()
-    reset()
+    Warehouse.get_inventory()"""
     
     
-def reset():
+def reset(reset = "False"):
+    global running
     
-    try: restart = int(input("Perform Another Action? 1/0: "))
-    
-    except ValueError:
-        print("ValueError")
-        reset()
-    
-    if restart == 1:
-        print("resetting....")
-        main()
-    else:
+    if not reset:
+        try: restart = int(input("Perform Another Action? 1/0: "))
+        
+        except ValueError:
+            print("ValueError")
+            reset()
+        
+        if restart == 1:
+            print("resetting....")
+            main()
+        else:
+            print("Stopping Program.... Good bye!")
+            inventorySheet.close()
+    if reset:
         print("Stopping Program.... Good bye!")
+        inventorySheet.close()
+        running == False
     
     
 main()
