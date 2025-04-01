@@ -33,7 +33,7 @@ def main(phrase="N/A"):
         if spot in slots:
             if phrase == "N/A":
                 print(f"{spot} already picked") 
-        else:                                           # if it has not been picked, at it to the list of picked ones and use it as the index number when checking against the srs list
+        else:                                           
             if spot > len(preBS)-1:
                 if phrase == "N/A":
                     print("Out of Range, Shifting cypher")
