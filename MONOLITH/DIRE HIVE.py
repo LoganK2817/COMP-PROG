@@ -86,7 +86,7 @@ def main():
     
     
 def reset():
-    if bool(input("RESET: ")):
+    if 1==1: #bool(input("RESET: "))
         ark.br()
         main()
     else:
