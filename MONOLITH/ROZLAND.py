@@ -5,10 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import artifact as ark
 import random
 
-
-
-
-
 def main(phrase="N/A"):
     
     if phrase == "N/A":
@@ -25,10 +21,7 @@ def main(phrase="N/A"):
     spot = 0
     syShift = 0
     
-    
     while True:
-        
-        
         
         if spot in slots:
             if phrase == "N/A":
