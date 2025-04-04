@@ -10,9 +10,6 @@ from tkinter import simpledialog
 
 
 
-
-
-
 #-------------
 def remove_dupes(preList):
     return list(dict.fromkeys(preList))
@@ -56,3 +53,25 @@ to input a int, and returns the input."""
 # Line break function
 def br(lines=12):
     print("-"*lines)
+    
+"""It prints a dash 12 times
+unless otherwise specified, it ain't rocket science"""
+
+#--------------
+# program reset function
+
+def reset(progMainFunc):
+    
+    resetVar = input("RESET? : ")    
+
+    if resetVar == "1" or resetVar == "y" or resetVar == "yes":
+        print("-"*6 +"RESETTING..." + "-"*6)
+        progMainFunc()
+    else:
+        print("-"*6 +"SHUTTING DOWN..." + "-"*6)
+        
+"""The basic 'reset' function I use
+in a lot of my programs, now all thats needed
+is to call it and pass the 'main' func through"""
+
+#--------------

@@ -1,6 +1,11 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import artifact as ark
 
-startingPhrase = "Loganwadekunz2817"
+startingPhrase = input("Enter Phrase: ")
 
 endingPhrase = []
 
