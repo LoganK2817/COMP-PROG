@@ -21,10 +21,14 @@ Challenges:
 import sys
 
 def parse_file(filename):
-    file_data = {'ECO': [], 'WRM': [], 'SPC': []}
+    file_data = {
+        'ECO': [],
+        'WRM': [],
+        'SPC': []
+    }
 
-    with open(filename, 'r') as f:
-        for line in f:
+    with open(filename, 'r') as planetData:
+        for line in planetData:
             text, line_num, code = line.strip().rsplit('|', 2)
             line_num = int(line_num)
             file_data[code].append((line_num, text))
@@ -79,5 +83,7 @@ def main():
     data = parse_file(filename)
     write_holo_data(data)
     write_summary(data)
+    
+    
 if __name__ == '__main__':
     main()
