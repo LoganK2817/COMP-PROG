@@ -21,7 +21,7 @@ def generate_barcode():
 
     try:
         code39 = barcode.get_barcode_class('code39')
-        barcode_obj = code39(code, writer=ImageWriter(), add_checksum=True)
+        barcode_obj = code39(code, writer=ImageWriter(), add_checksum=False)
         full_filename = barcode_obj.save(filename)
 
         load_and_display_image(full_filename)

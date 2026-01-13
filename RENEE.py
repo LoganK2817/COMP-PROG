@@ -57,15 +57,23 @@ class Formulas:
         
 class Data_Handling:
     
-    class First_Formula:
-        a=1
+    def solve_mode_A():
+        energy_type = input("Energy type[GPE, KE, EPE]: ")
+        
+        if energy_type.lower() is "gpe":
+            var_options = {
+                
+            }
 
 def main():
     
     ark.br()
-    """starting_Formula = input("Known/Starting formula: [gpe,ke,epe]")
-    second_Formula = input("Unknown/Second formula: [gpe,ke,epe]")"""
-    print(Formulas.GPE.Solve_For_m())
+    solve_mode = input("Mode A) A=B*C |OR| Mode B) A*B=C*D: ")
+    
+    if solve_mode is "A" or "a":
+        Data_Handling.solve_mode_A()
+    elif solve_mode is "B" or "b":
+        return "Not yet"
 
     ark.br()
     
