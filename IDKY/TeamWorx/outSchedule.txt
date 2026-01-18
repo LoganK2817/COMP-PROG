@@ -1,0 +1,5 @@
+                       Position       In       Out  Hours
+Shift1 Date     Wednesday 01/28      NaN       NaN    NaN
+Shift1 Details              QB1  4:00 PM  10:30 PM    6.0
+Shift2 Date        Sunday 02/01      NaN       NaN    NaN
+Shift2 Details              SSW  5:00 PM   9:00 PM    4.0

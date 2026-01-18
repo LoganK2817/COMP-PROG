@@ -15,7 +15,7 @@ result.withdraw() # hide the result window untill it's needed
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) # Get the parent directory and add it to the path
 import plotting # The file where the point graphing takes palace
-import artifact # My library for Commonly Used Modules
+import IDKY.artifact as artifact # My library for Commonly Used Modules
 
 plotFile = open("TLOF_Points.txt", "w") # open/create plot output file
 plotName = "Unique End Points Simulated"

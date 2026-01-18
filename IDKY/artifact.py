@@ -52,7 +52,7 @@ to input a int, and returns the input."""
 #--------------
 # Line break function
 def br(lines=12):
-    print("-"*lines)
+    print("<<","-"*lines,">>")
     
 """It prints a dash 12 times
 unless otherwise specified, it ain't rocket science"""

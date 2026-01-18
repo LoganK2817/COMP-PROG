@@ -1,4 +1,4 @@
-import artifact as ark
+import IDKY.artifact as ark
 
 
 
