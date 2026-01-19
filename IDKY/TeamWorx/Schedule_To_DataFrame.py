@@ -3,7 +3,7 @@ from .. import artifact as ark
 import pandas as pd
 from pathlib import Path
 
-write_outfile = False
+write_outfile = True
 
 out_file_location = Path("IDKY") / "TeamWorx" / "outSchedule.txt"
 if write_outfile:
@@ -24,28 +24,33 @@ def main():
     ark.br(40)
     #-----------------------------------------------------------------------
     
-    row = 1
-    column = 0
-    
-    # for item in file.loc[:,file.columns[column]]:
-    #     for item in file.loc[row,:]:
-    #         print(item, type(item))
-    #         row += 1
-    #         print("row",row)
-    #     print("column",column)
-    #     column += 1
-    
-    print(file.loc[1:2, "Position":"In"])
-    ark.br(20)
-    for value in file.loc[1:2, "Position":"In"].to_numpy().flatten():
-        print(value)
 
+    
+    cell_num = 1
+    list_number = 0
+    
+    cells = []
+    
+    for item in file.loc[:,:].to_numpy().flatten():
+        if str(item) != "nan":
+            out_file.write(f"{str(item)} --CELL-- {cell_num} --LIST-- {list_number}\n")
+            cells.append(str(item))
+            cell_num += 1
+            list_number += 1
+        
+    # print(cells)
+    
+    out_dataframe_info = {"Day": [cells[0],cells[5]],
+                          "Position": [cells[1],cells[6]],
+                          "In": [cells[2],cells[7]]}
+    out_dataframe = pd.DataFrame(data=out_dataframe_info)
+    print(out_dataframe)
     
     
     #-----------------------------------------------------------------------
     ark.br(40)
     if write_outfile:
-        out_file.write(str(file.head()))
+        # out_file.write(str(file.head()))
         out_file.close()
     
     

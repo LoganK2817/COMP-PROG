@@ -1,5 +1,10 @@
-                       Position       In       Out  Hours
-Shift1 Date     Wednesday 01/28      NaN       NaN    NaN
-Shift1 Details              QB1  4:00 PM  10:30 PM    6.0
-Shift2 Date        Sunday 02/01      NaN       NaN    NaN
-Shift2 Details              SSW  5:00 PM   9:00 PM    4.0
+Wednesday 01/28 --CELL-- 1 --LIST-- 0
+QB1 --CELL-- 2 --LIST-- 1
+4:00 PM --CELL-- 3 --LIST-- 2
+10:30 PM --CELL-- 4 --LIST-- 3
+6.0 --CELL-- 5 --LIST-- 4
+Sunday 02/01 --CELL-- 6 --LIST-- 5
+SSW --CELL-- 7 --LIST-- 6
+5:00 PM --CELL-- 8 --LIST-- 7
+9:00 PM --CELL-- 9 --LIST-- 8
+4.0 --CELL-- 10 --LIST-- 9
