@@ -1,5 +1,5 @@
 
-from .. import artifact as ark
+from ..GridWork import artifact as ark
 import pandas as pd
 from pathlib import Path
 
