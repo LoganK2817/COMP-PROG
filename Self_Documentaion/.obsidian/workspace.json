@@ -20,8 +20,33 @@
               "icon": "lucide-file",
               "title": "Using 'Pandas'"
             }
+          },
+          {
+            "id": "7cd81b628daf4be8",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.5"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.11.5"
+            }
+          },
+          {
+            "id": "2464ab3d6108ab4b",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.12.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.12.7"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -193,7 +218,7 @@
       "callout-manager:Insert Callout": false
     }
   },
-  "active": "38743fb77994d6df",
+  "active": "2464ab3d6108ab4b",
   "lastOpenFiles": [
     "Using 'Pandas'.md",
     "Repository README.md",

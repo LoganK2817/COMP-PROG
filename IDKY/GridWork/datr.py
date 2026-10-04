@@ -1,4 +1,4 @@
-import artifact as ark
+import IDKY.MCC.artifact as ark
 import random as ran
 
 ark.br()
@@ -41,6 +41,11 @@ def main():
     
     class Display:
         
+        horse1Name = str(input("Name Horse # 1: "))
+        horse2Name = str(input("Name Horse # 2: "))
+        horse3Name = str(input("Name Horse # 3: "))
+        horse4Name = str(input("Name Horse # 4: "))
+        
         @staticmethod
         def refresh():
             Display.frame(), Display.DownTownBrown(),Display.MilkAndCreamy(),Display.SeaBiscut(),Display.Mommy(),Display.frame()
@@ -51,19 +56,19 @@ def main():
         @staticmethod
         def DownTownBrown():
             front, back = Horses.DownTownBrown
-            print("-"*front+"X"+" "*back+"Down Town Brown")
+            print("-"*front+"X"+" "*back+Display.horse1Name)
         @staticmethod
         def MilkAndCreamy():
             front, back = Horses.MilkAndCreamy
-            print("-"*front+"X"+" "*back+"Milk And Creamy")
+            print("-"*front+"X"+" "*back+Display.horse2Name)
         @staticmethod
         def SeaBiscut():
             front, back = Horses.SeaBiscut
-            print("-"*front+"X"+" "*back+"Sea Biscut")
+            print("-"*front+"X"+" "*back+Display.horse3Name)
         @staticmethod
         def Mommy():
             front, back = Horses.Mommy
-            print("-"*front+"X"+" "*back+"Mommy")
+            print("-"*front+"X"+" "*back+Display.horse4Name)
 
     print("--Wellcome to Day At The Races!--\n--Select a Horse To start--")
     playerBet = input("Place Your Bet (1,2,3,4): ")
