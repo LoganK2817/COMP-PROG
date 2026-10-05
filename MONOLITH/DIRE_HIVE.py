@@ -1,5 +1,5 @@
 import ROZLAND as roz
-import IDKY.MCC.artifact as ark
+import artifact as ark
 
 
 """

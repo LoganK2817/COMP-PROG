@@ -1,5 +1,5 @@
 
-from ..MCC import artifact as ark
+from ... import artifact as ark
 import pandas as pd
 from pathlib import Path
 

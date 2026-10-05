@@ -1,4 +1,4 @@
-import IDKY.MCC.artifact as ark
+import artifact as ark
 import random as ran
 
 ark.br()
