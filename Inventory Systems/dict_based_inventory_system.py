@@ -1,15 +1,15 @@
 import artifact as ark
-
+import ast
 
 """
 Currrent number of labeled ERRORS: 4
 """
 
-
 class inventory:
-    totals = {
-        "cans": 2
-    }
+    with open("inventory systems/inventory_testing.txt", "r") as file:
+        file_content = file.read().strip()
+    
+    totals = ast.literal_eval(file_content)
     
     @staticmethod
     def new(item_id,count):
@@ -26,6 +26,12 @@ class inventory:
     def remove(item_id):
         inventory.totals.pop(item_id)
         return f"Removed {item_id}."
+    
+    @staticmethod
+    def save():
+        with open("inventory systems/inventory_testing.txt", "w") as file:
+            file.write(str(inventory.totals))
+        return "Saved :)"
 
 
 class user_commands:
@@ -59,7 +65,8 @@ class user_commands:
 
 commands = {
     "read": user_commands.read,
-    "write": user_commands.write
+    "write": user_commands.write,
+    "save": inventory.save
 }
 
 
@@ -69,17 +76,18 @@ def main():
     print("Inventory management via python: V 0.0.1\nEnter Action: *read,write,close*\n")
     
     while True: #This is the loop of user input
-        action = input("--*read,write,close*--\n")
+        action = input("--*read,write,close,save*--\n")
         action = action.lower()
         if action == "close":
             break
         else:
             #print(f"Running: {action}")
             command = commands.get(action)
-            try:
-                command()
-            except:
-                print("---ERROR 1; INVALID COMMAND; TRY AGAIN---")
+            #print(f"running: {command}")
+            #try:
+            command()
+            #except:
+                #print("---ERROR 1; INVALID COMMAND; TRY AGAIN---")
         
         
     ark.br()
