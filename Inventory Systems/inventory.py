@@ -1,6 +1,8 @@
 import artifact as ark
 import ast
 
+
+
 """
 Currrent number of labeled ERRORS: 4
 """
@@ -37,12 +39,11 @@ class inventory:
 class user_commands:
     
     @staticmethod
-    def read():
-        read_action = input("-item- OR -all- :\n")
+    def read(read_action,item_id="null"):
         if read_action == "all": # print full inventory
             print(inventory.totals)
         elif read_action == "item": # print single item count via id
-            print(inventory.totals.get(str(input("Enter Item ID: "))))  
+            print(inventory.totals.get(str(item_id)))  
             
     @staticmethod
     def write():
@@ -61,40 +62,15 @@ class user_commands:
             except:
                 print("---ERROR 4; INVALID ITEM ID; TRY AGAIN---")
             
-    
 
-commands = {
-    "read": user_commands.read,
-    "write": user_commands.write,
-    "save": inventory.save
-}
-
-
-
-def main():
-    ark.br()
-    print("Inventory management via python: V 0.0.1\nEnter Action: *read,write,close*\n")
-    
-    while True: #This is the loop of user input
-        action = input("--*read,write,close,save*--\n")
-        action = action.lower()
-        if action == "close":
-            break
-        else:
-            #print(f"Running: {action}")
-            command = commands.get(action)
-            #print(f"running: {command}")
-            try:
-                command()
-            except Exception as e:
-                print("---ERROR 1; INVALID COMMAND OR COMMAND RESOLUTION; TRY AGAIN---")
-                ark.br()
-                print(repr(e))
-                ark.br()
+class action:
+    @staticmethod
+    def read_all():
+        user_commands.read("all")
+        
+    @staticmethod
+    def read(item_id):
+        user_commands.read("item",item_id)
         
         
-    ark.br()
     
-    
-    
-main()
