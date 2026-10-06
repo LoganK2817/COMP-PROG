@@ -8,10 +8,13 @@ Currrent number of labeled ERRORS: 4
 """
 
 class inventory:
-    with open("inventory systems/inventory_testing.txt", "r") as file:
-        file_content = file.read().strip()
-    
-    totals = ast.literal_eval(file_content)
+    @staticmethod
+    def refresh(file_id):
+        with open(file_id, "r") as file:
+            file_content = file.read().strip()
+        totals = ast.literal_eval(file_content)
+        
+        return totals
     
     @staticmethod
     def new(item_id,count):
@@ -30,8 +33,8 @@ class inventory:
         return f"Removed {item_id}."
     
     @staticmethod
-    def save():
-        with open("inventory systems/inventory_testing.txt", "w") as file:
+    def save(file_id):
+        with open(file_id, "w") as file:
             file.write(str(inventory.totals))
         return "Saved :)"
 
@@ -46,19 +49,17 @@ class user_commands:
             print(inventory.totals.get(str(item_id)))  
             
     @staticmethod
-    def write():
-        write_action = input("-change- OR -new- OR -remove-:\n")
-        
+    def write(write_action, item_id="null", count=0):
         if write_action =="new": # add new item to inventory
-            print(inventory.new(input("-New Item ID:\n"),input("-New Item Count:\n")))
+            print(inventory.new(item_id,count))
         elif write_action == "change":
             try:
-                print(inventory.change(input("-Item ID:\n"),input("-Change Degree:\n")))
+                print(inventory.change(item_id,count))
             except:
                 print("---ERROR 3; INVALID ITEM ID OR DEGREE; TRY AGAIN---")
         elif write_action == "remove":
             try:
-                print(inventory.remove(input("-Item ID:\n")))
+                print(inventory.remove(item_id))
             except:
                 print("---ERROR 4; INVALID ITEM ID; TRY AGAIN---")
             
@@ -72,5 +73,14 @@ class action:
     def read(item_id):
         user_commands.read("item",item_id)
         
+    @staticmethod
+    def save(file_id):
+        inventory.save(file_id)
         
+    @staticmethod
+    def refresh(file_id):
+        inventory.refresh(file_id)
     
+    @staticmethod
+    def write_new(local_inventory_id,item_id,count):
+        local_inventory_id[item_id] = int(count)
