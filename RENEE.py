@@ -79,5 +79,5 @@ def main():
     
     
     
-if True:
+if __name__ == "__main__":
     main()

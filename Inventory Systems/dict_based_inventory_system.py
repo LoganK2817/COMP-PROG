@@ -84,10 +84,13 @@ def main():
             #print(f"Running: {action}")
             command = commands.get(action)
             #print(f"running: {command}")
-            #try:
-            command()
-            #except:
-                #print("---ERROR 1; INVALID COMMAND; TRY AGAIN---")
+            try:
+                command()
+            except Exception as e:
+                print("---ERROR 1; INVALID COMMAND OR COMMAND RESOLUTION; TRY AGAIN---")
+                ark.br()
+                print(repr(e))
+                ark.br()
         
         
     ark.br()
@@ -95,4 +98,3 @@ def main():
     
     
 main()
-ark.reset(main)
