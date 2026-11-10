@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-import artifact as ark
+#import artifact as ark
 import random
 
 def main(phrase="N/A"):
@@ -48,7 +48,7 @@ def main(phrase="N/A"):
         if len(slots) == len(preBS):
             
             if phrase == "N/A":      
-                ark.br()
+                #ark.br()
                 print(preBS)
                 print(postBS)
                 try:
@@ -63,5 +63,6 @@ def main(phrase="N/A"):
                 return string
             break
             
-ark.br()
+#ark.br()
 
+main()
