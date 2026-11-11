@@ -2,7 +2,11 @@ import artifact as ark
 
 
 
-""" 
+"""
+Basic physics library
+
+
+ 
 GPE = mass*gravity*height
 KE  = 1/2(mass)(velocity)^2 | KE = Work
 EPE = 1/2(k-spring const)(x-compression)^2
