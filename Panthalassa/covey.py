@@ -30,40 +30,41 @@ digit_to_alphabet = {
 
 
 debug_text = True
+cypher_text = False
 
 def main():
-    starting_string = "HO EWOLRLLD"
+    starting_string = input("INPUT: ")
     
     
     preString = list(starting_string)
     if debug_text: print(f"DEBUG TEXT:: PreString: {preString}")
-    
     charCount = len(preString)
     if debug_text: print(f"DEBUG TEXT:: CharCount: {charCount}")
-    
     firstChar = preString[0]
     if debug_text: print(f"DEBUG TEXT:: FirstChar: {firstChar}")
     
     checkedIndexs = []
-    
     currentIndex = 0
-    
     endString = []
-    
     cypherShift = 0
+    
+    letterDigit = alphabet_to_digit.get(firstChar.lower())
+    if debug_text: print(f"DEBUG TEXT:: LetterDigit= {letterDigit}")
+    newletterDigit = letterDigit + charCount
+    while newletterDigit > 26: 
+        newletterDigit -= 26
+    if debug_text: print(f"DEBUG TEXT:: New Letter= {newletterDigit}:{digit_to_alphabet.get(newletterDigit)}")
+    shiftedLetter = digit_to_alphabet.get(newletterDigit)
     
     while True:
         
-        """letterDigit = alphabet_to_digit.get(firstChar.lower())
-        print(letterDigit)
-        letterDigit += charCount
-        print(digit_to_alphabet.get(letterDigit))"""
+        
         
         if currentIndex in checkedIndexs:
-            if debug_text: print(f"index '{currentIndex}' already used, skipping")
+            if cypher_text: print(f"index '{currentIndex}' already used, skipping")
         else:
             if currentIndex > charCount-1:
-                if debug_text: print("Current Index out of range, Shifter cyper to phase 2")
+                if cypher_text: print("Current Index out of range, Shifter cyper to phase 2")
                 cypherShift += 1
                 currentIndex = 0
             else:
@@ -77,10 +78,13 @@ def main():
         elif cypherShift >= 2:
             break
             
-            
         if len(checkedIndexs) == charCount:
-            print(endString)
+            result = []
+            for char in endString:
+                if char.lower() == firstChar.lower(): result.append(shiftedLetter)
+                else: result.append(char)
             print(''.join(endString))
+            print(''.join(result))
             break
     
 ark.br(24)
