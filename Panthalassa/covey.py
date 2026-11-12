@@ -46,6 +46,10 @@ class ui:
     @staticmethod
     def getinputstring():
         return input("INPUT: ") # Get string from user
+    
+    @staticmethod
+    def getrozfactor():
+        return input("ROZ FACTOR: ")
 
 class setup:
     # prework on input string
@@ -78,11 +82,15 @@ class setup:
 
 def main():
     
+    rozFactor = int(ui.getrozfactor())
+    
     # basic cypher variables 
     checkedIndexs = [] # list of indexes that have been added to the output build already.
     currentIndex = 0 # variable to keep track of the current index location of the algorithm 
     endString = [] # the list where the output is built
     cypherShift = 0 # keeps track of what cycle the cypher is on
+    decodeKey = 0
+    shift = 0
     
     #cypher loop
     while True:
@@ -100,8 +108,11 @@ def main():
             
         # the cypherShift determines what cycle the algorithm is on        
         if cypherShift == 0: # cycle 1, primary run
-            currentIndex += 3 
+            currentIndex += rozFactor
         elif cypherShift == 1: # cycle 2, clean-up run
+            if shift == 0:
+                decodeKey = len(endString)-1
+                shift +=1
             currentIndex += 1 
         elif cypherShift >= 2: # cycle 3, hot-swap run
             result = []
@@ -110,6 +121,7 @@ def main():
                 else: result.append(char)
             print(''.join(endString))
             print(''.join(result))
+            print(f"Decode Key: {decodeKey}")
             break
             
     
